@@ -1,29 +1,31 @@
   <!-- 2 method to Output contect---- Property bading -->
 <mat-card>
-  <form (submit)="onAddPost(postForm)" #postForm="ngForm">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onAddPost()" *ngIf="!isLoading">
     <mat-form-field>
       <input
       matInput
-      type="text"
       name = "title"
+      formControlName="title"
       placeholder="Post Title"
-      ngModel
-      required
-      minlength="3"
-      #title="ngModel">
-      <mat-error *ngIf="title.invalid">Please enter a post title</mat-error>
+      >
+      <mat-error *ngIf="form.get('title')?.invalid">Please enter a post title</mat-error>
     </mat-form-field>
+    <br/>
+    <div>
+      <button mat-stroked-button type="button" (click)="filePicker.click()">Post Image</button>
+      <input type="file" #filePicker>
+    </div>
     <br/>
     <mat-form-field>
       <input
       matInput
       rows="6"
       name = "content"
+      formControlName="content"
       placeholder="post content"
-      ngModel
-      required
-      #content="ngModel">
-      <mat-error *ngIf="content.invalid">Please enter a post content</mat-error>
+     >
+      <mat-error *ngIf="form.get('content')?.invalid">Please enter a post content</mat-error>
 
     </mat-form-field>
   <hr>
